@@ -1,3 +1,5 @@
+# coding=utf-8
+
 # Copyright DataStax, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -535,7 +537,8 @@ class UnicodeIdentifiersTests(unittest.TestCase):
         tm.export_as_string()
 
     def test_index(self):
-        im = IndexMetadata(self.name, self.name, self.name, kind='', index_options={'target': self.name})
+        # im = IndexMetadata(self.name, self.name, self.name, kind='', index_options={'target': self.name, 'delimiter': '\xe2\x96\x91'})
+        im = IndexMetadata(self.name, self.name, self.name, kind='', index_options={'target': self.name, 'delimiter': u'░'})
         im.export_as_string()
         im = IndexMetadata(self.name, self.name, self.name, kind='CUSTOM', index_options={'target': self.name, 'class_name': 'Class'})
         im.export_as_string()
