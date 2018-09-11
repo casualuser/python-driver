@@ -20,6 +20,7 @@ except ImportError:
     import unittest  # noqa
 
 from binascii import unhexlify
+import logging
 from mock import Mock
 import os
 import six
@@ -38,6 +39,9 @@ from cassandra.metadata import (Murmur3Token, MD5Token,
                                 Metadata, TokenMap)
 from cassandra.policies import SimpleConvictionPolicy
 from cassandra.pool import Host
+
+
+log = logging.getLogger(__name__)
 
 
 class StrategiesTest(unittest.TestCase):
@@ -537,11 +541,13 @@ class UnicodeIdentifiersTests(unittest.TestCase):
         tm.export_as_string()
 
     def test_index(self):
-        # im = IndexMetadata(self.name, self.name, self.name, kind='', index_options={'target': self.name, 'delimiter': '\xe2\x96\x91'})
-        im = IndexMetadata(self.name, self.name, self.name, kind='', index_options={'target': self.name, 'delimiter': u'░'})
-        im.export_as_string()
+        im = IndexMetadata(self.name, self.name, self.name, kind='', index_options={'target': self.name})
+        # im = IndexMetadata(self.name, self.name, self.name, kind='', index_options={'target': self.name, 'delimiter': u'░'})
+        log.debug(im.export_as_string())
         im = IndexMetadata(self.name, self.name, self.name, kind='CUSTOM', index_options={'target': self.name, 'class_name': 'Class'})
-        im.export_as_string()
+        log.debug(im.export_as_string())
+        im = IndexMetadata(self.name, self.name, self.name, kind='CUSTOM', index_options={'target': self.name, 'class_name': 'Class', 'delimiter': u'░'})
+        log.debug(im.export_as_string())
 
     def test_function(self):
         fm = Function(self.name, self.name, (u'int', u'int'), (u'x', u'y'), u'int', u'language', self.name, False)
