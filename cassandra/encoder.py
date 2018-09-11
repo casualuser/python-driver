@@ -205,10 +205,27 @@ class Encoder(object):
         Converts a dict into a string of the form ``{key1: val1, key2: val2, ...}``.
         This is suitable for ``map`` type columns.
         """
-        return '{%s}' % ', '.join('%s: %s' % (
-            self.mapping.get(type(k), self.cql_encode_object)(k),
-            self.mapping.get(type(v), self.cql_encode_object)(v)
-        ) for k, v in six.iteritems(val))
+        for k, v in six.iteritems(val):
+            print({'k': k,
+                   'type(k)': type(k),
+                   'v': v,
+                   'type(v)': type(v)})
+        iterable = [
+            # self.cql_encode_all_types(k),
+            # self.cql_encode_all_types(v)
+            (self.mapping.get(type(k), self.cql_encode_object)(k),
+            self.mapping.get(type(v), self.cql_encode_object)(v))
+            for k, v in six.iteritems(val)]
+        print iterable
+        rv = '{%s}' % ', '.join('%s: %s' % x for x in iterable)
+        print rv
+        return rv
+        # return '{%s}' % ', '.join('%s: %s' % (
+        #     # self.cql_encode_all_types(k),
+        #     # self.cql_encode_all_types(v)
+        #     self.mapping.get(type(k), self.cql_encode_object)(k),
+        #     self.mapping.get(type(v), self.cql_encode_object)(v)
+        # ) for k, v in six.iteritems(val))
 
     def cql_encode_list_collection(self, val):
         """
@@ -229,6 +246,9 @@ class Encoder(object):
         Converts any type into a CQL string, defaulting to ``cql_encode_object``
         if :attr:`~Encoder.mapping` does not contain an entry for the type.
         """
+        # f = self.mapping.get(type(val), self.cql_encode_object)
+        # # print('encoding {} with {}'.format(val, f))
+        # return f(val)
         return self.mapping.get(type(val), self.cql_encode_object)(val)
 
     if six.PY3:
