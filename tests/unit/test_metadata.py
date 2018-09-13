@@ -542,7 +542,6 @@ class UnicodeIdentifiersTests(unittest.TestCase):
 
     def test_index(self):
         im = IndexMetadata(self.name, self.name, self.name, kind='', index_options={'target': self.name})
-        # im = IndexMetadata(self.name, self.name, self.name, kind='', index_options={'target': self.name, 'delimiter': u'░'})
         log.debug(im.export_as_string())
         im = IndexMetadata(self.name, self.name, self.name, kind='CUSTOM', index_options={'target': self.name, 'class_name': 'Class'})
         log.debug(im.export_as_string())
