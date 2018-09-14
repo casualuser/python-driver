@@ -205,10 +205,19 @@ class Encoder(object):
         Converts a dict into a string of the form ``{key1: val1, key2: val2, ...}``.
         This is suitable for ``map`` type columns.
         """
-        return '{%s}' % ', '.join('%s: %s' % (
+        print('cql_encode_map_collection({})'.format(val))
+        for k, v in six.iteritems(val):
+            print('\t{} ({}): {} ({})'.format(
+                cql_quote(k), self.mapping.get(type(k)),
+                cql_quote(v), self.mapping.get(type(v)),
+            ))
+
+        return_val = '{%s}' % ', '.join('%s: %s' % (
             self.mapping.get(type(k), self.cql_encode_object)(k),
             self.mapping.get(type(v), self.cql_encode_object)(v)
         ) for k, v in six.iteritems(val))
+        print('return_val:', return_val)
+        return return_val
 
     def cql_encode_list_collection(self, val):
         """

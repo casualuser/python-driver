@@ -1,5 +1,10 @@
 # coding: utf-8
+import sys
+
+
 from cassandra.cluster import Cluster
+
+print(sys.version)
 
 s = Cluster().connect()
 

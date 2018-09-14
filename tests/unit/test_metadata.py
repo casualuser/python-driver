@@ -545,7 +545,7 @@ class UnicodeIdentifiersTests(unittest.TestCase):
         log.debug(im.export_as_string())
         im = IndexMetadata(self.name, self.name, self.name, kind='CUSTOM', index_options={'target': self.name, 'class_name': 'Class'})
         log.debug(im.export_as_string())
-        im = IndexMetadata(self.name, self.name, self.name, kind='CUSTOM', index_options={'target': self.name, 'class_name': 'Class', 'delimiter': u'░'})
+        im = IndexMetadata(self.name, self.name, self.name, kind='CUSTOM', index_options={'target': self.name, 'class_name': 'Class', 'delimiter': self.name})
         log.debug(im.export_as_string())
 
     def test_function(self):
