@@ -1,6 +1,10 @@
 3.15.2
 ======
 
+Bug Fixes
+---------
+* Non-ASCII characters in schema break CQL string generation (PYTHON-1008)
+
 Other
 -----
 * Fix tests when RF is not maintained if we decomission a node (PYTHON-1017)
