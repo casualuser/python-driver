@@ -1436,12 +1436,9 @@ class IndexMetadata(object):
                 class_name)
             if options:
                 opts_cql_encoded = Encoder().cql_encode_all_types(options)
+                # PYTHON-1008
                 if isinstance(opts_cql_encoded, six.binary_type):
-                    print('decoding')
                     opts_cql_encoded = opts_cql_encoded.decode('utf-8')
-                print(type(opts_cql_encoded),
-                      'len={}'.format(len(opts_cql_encoded)),
-                      opts_cql_encoded)
                 ret += " WITH OPTIONS = %s" % opts_cql_encoded
             return ret
 
