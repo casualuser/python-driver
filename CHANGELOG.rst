@@ -1,6 +1,10 @@
 3.15.2
 ======
 
+Bug Fixes
+---------
+* Fix OSS driver's virtual table support against DSE 6.0.X and future server releases (PYTHON-1020)
+
 Other
 -----
 * Fix tests when RF is not maintained if we decomission a node (PYTHON-1017)
